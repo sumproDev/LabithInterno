@@ -16,15 +16,15 @@ export function Hero() {
       <motion.div className="hero-media" initial={reduced ? false : { scale: 1.035 }} animate={{ scale: 1 }} transition={{ duration: 8, ease: "easeOut" }}><Image src="/images/hero-living-room.png" alt="Luxury living room with dark marble and walnut wall finishes" fill priority sizes="100vw" /></motion.div>
       <div className="hero-overlay" />
       <div className="hero-content">
-        <motion.p className="eyebrow" {...enter(.1)}>PREMIUM INTERIOR SOLUTIONS</motion.p>
+        <motion.p className="eyebrow" {...enter(.1)}>PREMIUM INTERIOR PRODUCTS</motion.p>
         <motion.h1 {...enter(.18)}>World Beyond<br /><span>Imagination.</span></motion.h1>
         <motion.p className="hero-lead" {...enter(.3)}>Premium interior products that inspire, define and transform spaces.</motion.p>
         <motion.div className="button-row" {...enter(.4)}><Link href="/products" className="button button-primary">Explore Products <ArrowUpRight /></Link><Link href="/franchise" className="button button-secondary">Join Franchise <ArrowUpRight /></Link></motion.div>
       </div>
       <nav className="category-strip" aria-label="Product categories">
-        {productCategories.map((item, index) => { const Icon = icons[index]; return <Link href={`/products/${item.slug}`} key={item.slug}><Icon aria-hidden="true" /><span>{item.title}</span></Link>; })}
+        {productCategories.map((item, index) => { const Icon = icons[index % icons.length]; return <Link href={`/products/${item.slug}`} key={item.slug}><Icon aria-hidden="true" /><span>{item.title}</span></Link>; })}
       </nav>
-      <p className="hero-index"><span>01</span> / 06</p>
+      <p className="hero-index"><span>01</span> / 10</p>
     </section>
   );
 }
