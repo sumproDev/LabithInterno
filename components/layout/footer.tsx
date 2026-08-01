@@ -2,9 +2,10 @@ import Link from "next/link";
 import { ArrowUpRight, Instagram, Linkedin, Mail, Phone } from "lucide-react";
 import { Logo } from "@/components/ui/logo";
 import { navigation } from "@/data/navigation";
-import { products } from "@/data/products";
+import { getProducts } from "@/lib/cms";
 
-export function Footer() {
+export async function Footer() {
+  const products = await getProducts();
   return (
     <footer className="site-footer">
       <div className="footer-grid">

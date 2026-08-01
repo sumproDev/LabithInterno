@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { buildFallbackAnswer, findRelevantContext, getWebsiteContext } from "@/lib/site-context";
+import { buildFallbackAnswer, findRelevantContext, getDynamicWebsiteContext, getWebsiteContext } from "@/lib/site-context";
 
 export async function POST(request: Request) {
   try {
@@ -12,6 +12,7 @@ export async function POST(request: Request) {
 
     const apiKey = process.env.OPENAI_API_KEY;
     const fallbackAnswer = buildFallbackAnswer(message);
+    const dynamicContext = await getDynamicWebsiteContext();
 
     if (!apiKey) {
       return NextResponse.json({ answer: fallbackAnswer, source: "website-context" });
@@ -40,7 +41,7 @@ export async function POST(request: Request) {
           },
           {
             role: "user",
-            content: `Website context:\n${relevantContext || getWebsiteContext()}\n\nVisitor question: ${message}`,
+            content: `Website context:\n${dynamicContext || relevantContext || getWebsiteContext()}\n\nVisitor question: ${message}`,
           },
         ],
         temperature: 0.35,

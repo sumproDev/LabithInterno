@@ -1,6 +1,7 @@
 import { franchiseFaqs } from "@/data/faqs";
 import { products } from "@/data/products";
 import { projects } from "@/data/projects";
+import { getProducts, getProjects } from "@/lib/cms";
 
 export type ContextBlock = {
   title: string;
@@ -148,4 +149,31 @@ export function buildFallbackAnswer(question: string) {
   });
 
   return `${lead}\n${points.join("\n")}\n\nFor product selection or pricing, send an enquiry through the contact page so the team can confirm the latest catalogue, suitability and availability.`;
+}
+
+export async function getDynamicWebsiteContext() {
+  const [dynamicProducts, dynamicProjects] = await Promise.all([getProducts(), getProjects()]);
+  const productBlocks = dynamicProducts.map((product) => ({
+    title: product.title,
+    url: `/products/${product.slug}`,
+    text: [
+      `${product.title} is part of ${product.category}.`,
+      product.shortDescription,
+      product.fullDescription,
+      `Finishes: ${product.finishes.join(", ")}.`,
+      `Applications: ${product.applications.join(", ")}.`,
+      `Features: ${product.features.join(", ")}.`,
+      `Dimensions: ${product.dimensions}`,
+      `Installation: ${product.installation}`,
+      `Maintenance: ${product.maintenance}`,
+    ].join(" "),
+  }));
+  const projectBlocks = dynamicProjects.map((project) => ({
+    title: project.title,
+    url: `/projects/${project.slug}`,
+    text: [`${project.title} is a ${project.type.toLowerCase()} project.`, `Products used: ${project.products.join(", ")}.`, project.challenge, project.approach, project.result].join(" "),
+  }));
+  return [...brandBlocks, ...productBlocks, ...projectBlocks, ...faqBlocks]
+    .map((block) => `Title: ${block.title}\nURL: ${block.url}\nContent: ${block.text}`)
+    .join("\n\n");
 }
