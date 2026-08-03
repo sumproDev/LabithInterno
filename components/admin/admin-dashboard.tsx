@@ -24,7 +24,7 @@ const emptyRecords: Record<Resource, RecordItem> = {
 
 const arrayFields = new Set(["images", "finishes", "applications", "features", "productSlugs", "products"]);
 const longFields = new Set(["shortDescription", "fullDescription", "description", "dimensions", "installation", "maintenance", "challenge", "approach", "result", "quote"]);
-const hiddenFields = new Set(["_id", "__v", "createdAt", "updatedAt"]);
+const hiddenFields = new Set(["__v", "createdAt", "updatedAt"]);
 
 function readable(field: string) {
   return field.replace(/([A-Z])/g, " $1").replace(/^./, (letter) => letter.toUpperCase());
@@ -33,6 +33,15 @@ function readable(field: string) {
 function normalizeItem(item: RecordItem) {
   const copy = { ...item };
   hiddenFields.forEach((field) => delete copy[field]);
+  return copy;
+}
+
+function cleanPayload(item: RecordItem) {
+  const copy = { ...item };
+  delete copy._id;
+  delete copy.__v;
+  delete copy.createdAt;
+  delete copy.updatedAt;
   return copy;
 }
 
@@ -54,7 +63,7 @@ export function AdminDashboard() {
     window.setTimeout(() => setToasts((current) => current.filter((item) => item.id !== id)), 3200);
   }
 
-  async function load(resource = active) {
+  async function load(resource = active, preferredId?: string) {
     setLoading(true);
     const response = await fetch(`/api/admin/${resource}`);
     const data = await response.json().catch(() => ({}));
@@ -65,8 +74,18 @@ export function AdminDashboard() {
       setSelected(emptyRecords[resource]);
       return;
     }
-    setItems(data.items || []);
-    setSelected(data.items?.[0] ? normalizeItem(data.items[0]) : emptyRecords[resource]);
+    const loadedItems: RecordItem[] = data.items || [];
+    setItems(loadedItems);
+
+    if (preferredId) {
+      const match = loadedItems.find((item) => item._id === preferredId);
+      if (match) {
+        setSelected(normalizeItem(match));
+        return;
+      }
+    }
+
+    setSelected(loadedItems[0] ? normalizeItem(loadedItems[0]) : emptyRecords[resource]);
   }
 
   useEffect(() => {
@@ -82,9 +101,10 @@ export function AdminDashboard() {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSaving(true);
-    const method = selected._id ? "PUT" : "POST";
-    const url = selected._id ? `/api/admin/${active}/${selected._id}` : `/api/admin/${active}`;
-    const payload = normalizeItem(selected);
+    const isEditing = Boolean(selected._id);
+    const method = isEditing ? "PUT" : "POST";
+    const url = isEditing ? `/api/admin/${active}/${selected._id}` : `/api/admin/${active}`;
+    const payload = cleanPayload(selected);
     const response = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
     const data = await response.json().catch(() => ({}));
     setSaving(false);
@@ -94,8 +114,9 @@ export function AdminDashboard() {
       return;
     }
 
-    toast("success", selected._id ? "Record updated." : "Record created.");
-    await load(active);
+    const savedId = data.item?._id || selected._id;
+    toast("success", isEditing ? "Record updated." : "Record created.");
+    await load(active, savedId);
   }
 
   async function remove() {
@@ -198,7 +219,7 @@ export function AdminDashboard() {
                 </label>
               );
             })}
-            <div className="admin-form-actions"><button type="submit" disabled={saving}><Save /> {saving ? "Saving..." : "Save"}</button>{selected._id && <button type="button" className="danger" onClick={remove}><Trash2 /> Delete</button>}</div>
+            <div className="admin-form-actions"><button type="submit" disabled={saving}><Save /> {saving ? "Saving..." : selected._id ? "Update Record" : "Create Record"}</button>{selected._id && <button type="button" className="danger" onClick={remove}><Trash2 /> Delete</button>}</div>
           </form>
         </div>
       </section>

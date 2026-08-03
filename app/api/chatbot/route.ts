@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     const message = typeof body?.message === "string" ? body.message.trim() : "";
 
     if (!message) {
-      return NextResponse.json({ answer: "Please ask a question about Labith Interno products, projects or franchise details." }, { status: 400 });
+      return NextResponse.json({ answer: "Please ask a question about Labith Interno products, projects or dealership details." }, { status: 400 });
     }
 
     const apiKey = process.env.OPENAI_API_KEY;
@@ -34,9 +34,11 @@ export async function POST(request: Request) {
           {
             role: "system",
             content: [
-              "You are Labith Interno's website assistant.",
-              "Answer only from the provided website context. If exact pricing, official phone number, availability or commercial terms are not in the context, say that the visitor should submit an enquiry.",
-              "Keep the tone premium, helpful and concise. Use first-person plural as Labith Interno when appropriate.",
+              "You are Labith Interno's website AI assistant.",
+              "Provide accurate, genuine, inspiring, and concise answers.",
+              "If asked what to integrate when building or making a home/house, warmly encourage the visitor and list all our core product categories: UV Marble Sheet, PU Stone, WPC Louvers, Fluted Panels, Soffit Panels, WPC Doors & Frames, WPC Sheets, French Moldings, PVC Panels, and Charcoal Panels.",
+              "If asked for contact details, email, gmail, or phone number, explicitly state: Email: labithinterno@gmail.com, Phone: +91 95708 00440, and Contact page: /contact.",
+              "Speak helpfully as Labith Interno."
             ].join(" "),
           },
           {
@@ -44,8 +46,8 @@ export async function POST(request: Request) {
             content: `Website context:\n${dynamicContext || relevantContext || getWebsiteContext()}\n\nVisitor question: ${message}`,
           },
         ],
-        temperature: 0.35,
-        max_output_tokens: 520,
+        temperature: 0.3,
+        max_output_tokens: 300,
       }),
     });
 

@@ -41,8 +41,8 @@ export function Header() {
       <div className={cn("mobile-panel", open && "mobile-panel-open")} aria-hidden={!open}>
         <nav aria-label="Mobile navigation">
           {navigation.map((item, index) => <Link key={item.href} href={item.href} onClick={() => setOpen(false)} className={active(item.href) ? "active" : ""}><span>0{index + 1}</span>{item.label}</Link>)}
+          <Link href="/contact" onClick={() => setOpen(false)} className="button button-primary mobile-enquiry-btn">Customer Enquiry</Link>
         </nav>
-        <Link href="/contact" onClick={() => setOpen(false)} className="button button-primary">Customer Enquiry</Link>
       </div>
     </header>
   );

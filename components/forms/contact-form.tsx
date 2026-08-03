@@ -26,11 +26,42 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
     <form className="premium-form" onSubmit={handleSubmit(onSubmit)} noValidate>
       {!compact && <div className="form-heading"><p className="eyebrow">CUSTOMER ENQUIRY</p><h2>Tell us which products interest you.</h2></div>}
       <div className="form-grid">
-        <Field label="Full name" error={errors.name?.message}><input {...register("name")} autoComplete="name" placeholder="Your name" /></Field>
-        <Field label="Phone number" error={errors.phone?.message}><input {...register("phone")} inputMode="tel" autoComplete="tel" placeholder="+91" /></Field>
+        <Field label="Full name" error={errors.name?.message}>
+          <input
+            {...register("name", {
+              onChange: (e) => {
+                e.target.value = e.target.value.replace(/[0-9]/g, "");
+              },
+            })}
+            autoComplete="name"
+            placeholder="Your name"
+          />
+        </Field>
+        <Field label="Phone number" error={errors.phone?.message}>
+          <input
+            {...register("phone", {
+              onChange: (e) => {
+                e.target.value = e.target.value.replace(/[a-zA-Z]/g, "");
+              },
+            })}
+            inputMode="tel"
+            autoComplete="tel"
+            placeholder="+91"
+          />
+        </Field>
         <Field label="Email address" error={errors.email?.message}><input {...register("email")} type="email" autoComplete="email" placeholder="you@company.com" /></Field>
-        <Field label="City" error={errors.city?.message}><input {...register("city")} autoComplete="address-level2" placeholder="Your city" /></Field>
-        <Field label="Enquiry type" error={errors.enquiryType?.message}><select {...register("enquiryType")}><option>Customer enquiry</option><option>Franchise enquiry</option></select></Field>
+        <Field label="City" error={errors.city?.message}>
+          <input
+            {...register("city", {
+              onChange: (e) => {
+                e.target.value = e.target.value.replace(/[0-9]/g, "");
+              },
+            })}
+            autoComplete="address-level2"
+            placeholder="Your city"
+          />
+        </Field>
+        <Field label="Enquiry type" error={errors.enquiryType?.message}><select {...register("enquiryType")}><option>Customer enquiry</option><option>Dealership enquiry</option></select></Field>
         <Field label="Product interest" error={errors.productInterest?.message}><select {...register("productInterest")}><option value="">Select product (optional)</option>{products.map(p => <option key={p}>{p}</option>)}</select></Field>
         <Field label="Message" error={errors.message?.message} wide><textarea {...register("message")} rows={compact ? 3 : 5} placeholder="Tell us about the product you need" /></Field>
       </div>

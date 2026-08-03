@@ -9,7 +9,7 @@ type Message = {
   visibleContent?: string;
 };
 
-const suggestions = ["Tell me about PU Stone", "Which products work for TV walls?", "How can I apply for franchise?"];
+const suggestions = ["Tell me about PU Stone", "Which products work for TV walls?", "How can I apply for dealership?"];
 
 export function Chatbot() {
   const [open, setOpen] = useState(false);
@@ -18,8 +18,8 @@ export function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Hi, I am the Labith Interno assistant. Ask me about products, finishes, applications, projects or franchise details.",
-      visibleContent: "Hi, I am the Labith Interno assistant. Ask me about products, finishes, applications, projects or franchise details.",
+      content: "Hi, I am the Labith Interno assistant. Ask me about products, finishes, applications, projects or dealership details.",
+      visibleContent: "Hi, I am the Labith Interno assistant. Ask me about products, finishes, applications, projects or dealership details.",
     },
   ]);
   const latestAssistantRef = useRef<HTMLDivElement | null>(null);
@@ -85,10 +85,12 @@ export function Chatbot() {
 
   return (
     <div className="chatbot-shell">
-      <button className="chatbot-fab" type="button" onClick={() => setOpen((value) => !value)} aria-label={open ? "Close Labith assistant" : "Open Labith assistant"}>
-        {open ? <X /> : <MessageCircle />}
-        <span>Ask Labith</span>
-      </button>
+      {!open && (
+        <button className="chatbot-fab" type="button" onClick={() => setOpen(true)} aria-label="Open Labith assistant">
+          <MessageCircle />
+          <span>Ask Labith</span>
+        </button>
+      )}
 
       {open && (
         <section className="chatbot-panel" aria-label="Labith Interno chatbot">
@@ -120,7 +122,7 @@ export function Chatbot() {
           </div>
 
           <form className="chatbot-form" onSubmit={onSubmit}>
-            <input value={input} onChange={(event) => setInput(event.target.value)} placeholder="Ask about products or franchise..." aria-label="Ask Labith Interno assistant" />
+            <input value={input} onChange={(event) => setInput(event.target.value)} placeholder="Ask about products or dealership..." aria-label="Ask Labith Interno assistant" />
             <button type="submit" disabled={loading || !input.trim()} aria-label="Send question"><Send /></button>
           </form>
         </section>

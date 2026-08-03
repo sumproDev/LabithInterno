@@ -18,7 +18,7 @@ const brandBlocks: ContextBlock[] = [
   {
     title: "Why choose Labith Interno",
     url: "/",
-    text: "Labith Interno focuses on premium product quality, modern designs, durable materials, a wide product range, pan-India supply, a franchise network, clear product information and dependable business relationships.",
+    text: "Labith Interno focuses on premium product quality, modern designs, durable materials, a wide product range, pan-India supply, a dealership network, clear product information and dependable business relationships.",
   },
   {
     title: "About Labith Interno",
@@ -26,14 +26,14 @@ const brandBlocks: ContextBlock[] = [
     text: "Labith Interno believes every surface starts with the right product. The mission is to make premium material choices clearer, more inspiring and more accessible to modern projects. The vision is to build a trusted interior-products network where design ambition is supported by material knowledge.",
   },
   {
-    title: "Franchise opportunity",
-    url: "/franchise",
-    text: "Labith Interno offers franchise partnerships for entrepreneurs and businesses with local market understanding, customer focus and interest in premium interior products. Support can include marketing assistance, product and sales training, operational guidance, territory review and ongoing business support. Territory availability and commercial terms are subject to evaluation and formal agreement.",
+    title: "Dealership opportunity",
+    url: "/dealership",
+    text: "Labith Interno offers dealership partnerships for entrepreneurs and businesses with local market understanding, customer focus and interest in premium interior products. Support can include marketing assistance, product and sales training, operational guidance, territory review and ongoing business support. Territory availability and commercial terms are subject to evaluation and formal agreement.",
   },
   {
     title: "Contact and enquiry",
     url: "/contact",
-    text: "Customers and franchise prospects can send an enquiry through the contact page. The website currently contains placeholder phone and email details that should be replaced with official contact information before publication.",
+    text: "Contact Labith Interno via Email: labithinterno@gmail.com, Phone: +91 95708 00440, or submit an enquiry on our website at /contact. Our team handles both customer and dealership enquiries.",
   },
 ];
 
@@ -43,13 +43,10 @@ const productBlocks: ContextBlock[] = products.map((product) => ({
   text: [
     `${product.title} is part of ${product.category}.`,
     product.shortDescription,
-    product.fullDescription,
     `Finishes: ${product.finishes.join(", ")}.`,
     `Applications: ${product.applications.join(", ")}.`,
     `Features: ${product.features.join(", ")}.`,
-    `Dimensions: ${product.dimensions}`,
-    `Installation: ${product.installation}`,
-    `Maintenance: ${product.maintenance}`,
+    `Dimensions: ${product.dimensions}.`,
   ].join(" "),
 }));
 
@@ -59,15 +56,13 @@ const projectBlocks: ContextBlock[] = projects.map((project) => ({
   text: [
     `${project.title} is a ${project.type.toLowerCase()} project.`,
     `Products used: ${project.products.join(", ")}.`,
-    `Challenge: ${project.challenge}`,
-    `Approach: ${project.approach}`,
     `Result: ${project.result}`,
   ].join(" "),
 }));
 
 const faqBlocks: ContextBlock[] = franchiseFaqs.map((faq) => ({
   title: faq.q,
-  url: "/franchise",
+  url: "/dealership",
   text: `${faq.q} ${faq.a}`,
 }));
 
@@ -119,7 +114,7 @@ export function getWebsiteContext() {
     .join("\n\n");
 }
 
-export function findRelevantContext(question: string, limit = 6) {
+export function findRelevantContext(question: string, limit = 4) {
   const terms = tokenize(question);
   if (!terms.length) return websiteContextBlocks.slice(0, limit);
 
@@ -136,19 +131,32 @@ export function findRelevantContext(question: string, limit = 6) {
 }
 
 export function buildFallbackAnswer(question: string) {
+  const q = question.toLowerCase();
+
+  // Contact / Gmail / Email / Phone intent
+  if (q.includes("email") || q.includes("gmail") || q.includes("contact") || q.includes("phone") || q.includes("number") || q.includes("reach") || q.includes("call")) {
+    return "You can reach Labith Interno via email at labithinterno@gmail.com or by phone at +91 95708 00440. You can also submit an enquiry directly on our Contact page at /contact.";
+  }
+
+  // Home / House building & integration intent
+  if (q.includes("home") || q.includes("house") || q.includes("integrate") || q.includes("building") || q.includes("renovat") || q.includes("design my")) {
+    return "To build a modern, luxury home interior, Labith Interno provides premium architectural finishes designed to transform walls, ceilings, and entryways. We recommend integrating our core product categories:\n\n• UV Marble Sheet (luxurious marble feature walls & TV units)\n• PU Stone (authentic stone texture accent walls)\n• Fluted Panels & WPC Louvers (linear depth & slatted wall designs)\n• Soffit Panels & PVC Panels (durable ceiling & wall coverage)\n• WPC Doors & Frames (waterproof, elegant entryways)\n• WPC Sheets, French Moldings & Charcoal Panels (refined decorative detailing)\n\nExplore all products on our Products page (/products) or send us an enquiry for tailored material recommendations!";
+  }
+
+  // Dealership intent
+  if (q.includes("dealership") || q.includes("franchise") || q.includes("partner")) {
+    return "Labith Interno offers dealership partnerships for modern interior products with marketing support, sales assistance, and territory guidance. Submit your details on our Dealership page (/dealership) to apply.";
+  }
+
   const relevant = findRelevantContext(question);
 
   if (!relevant.length) {
-    return "I can help with Labith Interno products, applications, finishes, projects, franchise details and enquiries. Ask me about a product like PU Stone, UV Marble Sheet, WPC Louvers, Fluted Panels or the franchise process.";
+    return "Labith Interno offers premium interior products like UV Marble Sheets, PU Stone, WPC Louvers, Fluted Panels, Soffit Panels, WPC Doors & Frames, French Moldings, PVC Panels, and Charcoal Panels. Ask us about any product, finish, or dealership opportunity!";
   }
 
-  const lead = "From Labith Interno's website context:";
-  const points = relevant.slice(0, 4).map((block) => {
-    const trimmed = block.text.length > 360 ? `${block.text.slice(0, 357)}...` : block.text;
-    return `- ${block.title}: ${trimmed}`;
-  });
-
-  return `${lead}\n${points.join("\n")}\n\nFor product selection or pricing, send an enquiry through the contact page so the team can confirm the latest catalogue, suitability and availability.`;
+  // Provide a clean, short, direct answer from the top relevant block
+  const topBlock = relevant[0];
+  return `${topBlock.text} For detailed catalogs or custom pricing, please submit an enquiry on our Contact page.`;
 }
 
 export async function getDynamicWebsiteContext() {
