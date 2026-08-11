@@ -16,8 +16,13 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
     const item = await getModelForResource(resource).findByIdAndUpdate(id, payload, { new: true, runValidators: true });
     if (!item) return NextResponse.json({ error: "Record not found." }, { status: 404 });
     return NextResponse.json({ item });
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof ZodError) return NextResponse.json({ error: error.issues[0]?.message || "Invalid form data." }, { status: 400 });
+    if (error && (error.code === 11000 || error.name === "MongoServerError")) {
+      const field = error.keyValue ? Object.keys(error.keyValue)[0] : "field";
+      const val = error.keyValue ? error.keyValue[field] : "";
+      return NextResponse.json({ error: `A record with this ${field} ("${val}") already exists.` }, { status: 400 });
+    }
     return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to update record." }, { status: 500 });
   }
 }

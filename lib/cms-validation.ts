@@ -2,7 +2,11 @@ import { z } from "zod";
 
 const slug = z.string().trim().min(2).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Use lowercase words separated by hyphens.");
 const csvArray = z.array(z.string().trim().min(1)).default([]);
-const imageArray = z.array(z.string().url().or(z.string().startsWith("/images/"))).default([]);
+const imageString = z.string().trim().refine(
+  (val) => val === "" || val.startsWith("/") || val.startsWith("http://") || val.startsWith("https://") || val.startsWith("data:"),
+  { message: "Image path must be a valid URL (e.g. Cloudinary https://res.cloudinary.com/... or relative path)" }
+);
+const imageArray = z.array(imageString).default([]);
 
 export const productSchema = z.object({
   id: z.string().trim().min(2),
@@ -38,7 +42,7 @@ export const projectSchema = z.object({
   location: z.string().trim().default(""),
   type: z.string().trim().min(2),
   products: csvArray,
-  image: z.string().url().or(z.string().startsWith("/images/")),
+  image: imageString.default(""),
   challenge: z.string().trim().default(""),
   approach: z.string().trim().default(""),
   result: z.string().trim().default(""),
@@ -51,7 +55,7 @@ export const testimonialSchema = z.object({
   name: z.string().trim().min(2),
   role: z.string().trim().default(""),
   rating: z.coerce.number().min(1).max(5).default(5),
-  image: z.string().url().or(z.literal("")).default(""),
+  image: imageString.default(""),
   featured: z.boolean().default(true),
   order: z.coerce.number().default(0),
 });

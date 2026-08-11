@@ -200,8 +200,10 @@ p { color: var(--muted); line-height: 1.75; }
 .footer-grid h3 { color: var(--yellow); text-transform: uppercase; letter-spacing: .16em; font-size: .85rem; font-weight: 800; margin-bottom: 25px; }
 .footer-grid > div:not(.footer-brand) > a { display: block; color: #b5b5b5; font-size: .88rem; margin: 14px 0; transition: color .2s; }
 .footer-grid > div > a:hover { color: #fff; }
-.footer-contact p { display: grid; grid-template-columns: 18px 1fr; column-gap: 12px; font-size: .88rem; line-height: 1.6; margin-bottom: 18px; color: #e0e0e0; }
-.footer-contact svg { width: 17px; color: var(--yellow); }
+.footer-contact p { display: grid; grid-template-columns: 18px 1fr; column-gap: 12px; font-size: .88rem; line-height: 1.6; margin-bottom: 18px; color: #e0e0e0; align-items: start; }
+.footer-contact svg { width: 17px; color: var(--yellow); margin-top: 3px; }
+.footer-contact a { color: inherit; transition: color .2s; }
+.footer-contact a:hover { color: var(--yellow); }
 .footer-contact em { grid-column: 2; color: #888; font-size: .72rem; }
 .newsletter { grid-column: 1/-1; display: flex; align-items: center; gap: 50px; border-top: 1px solid var(--border); padding-top: 35px; }
 .newsletter label { max-width: 380px; font: 600 .95rem/1.5 var(--font-head); color: #fff; }

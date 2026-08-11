@@ -29,8 +29,13 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
     const payload = schemas[resource].parse(await request.json());
     const item = await getModelForResource(resource).create(payload);
     return NextResponse.json({ item }, { status: 201 });
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof ZodError) return NextResponse.json({ error: error.issues[0]?.message || "Invalid form data." }, { status: 400 });
+    if (error && (error.code === 11000 || error.name === "MongoServerError")) {
+      const field = error.keyValue ? Object.keys(error.keyValue)[0] : "field";
+      const val = error.keyValue ? error.keyValue[field] : "";
+      return NextResponse.json({ error: `A record with this ${field} ("${val}") already exists.` }, { status: 400 });
+    }
     return NextResponse.json({ error: error instanceof Error ? error.message : "Unable to create record." }, { status: 500 });
   }
 }

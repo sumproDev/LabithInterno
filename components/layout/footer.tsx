@@ -15,8 +15,8 @@ export async function Footer() {
         <div className="footer-contact">
           <h3>Contact</h3>
           <p><Phone /> <a href="tel:+919570800440">+91 95708 00440</a></p>
-          <p><Mail /> <a href="mailto:labithinterno@gmail.com">labithinterno@gmail.com</a></p>
-          <p><a href="https://maps.app.goo.gl/CTvmLaqHTsEEn1xY7" target="_blank" rel="noopener noreferrer"><MapIcon /> Purnia Bihar, India</a></p>
+          <p><Mail /> <a href="mailto:labithinternollp@gmail.com">labithinternollp@gmail.com</a></p>
+          <p><MapIcon /> <a href="https://maps.app.goo.gl/CTvmLaqHTsEEn1xY7" target="_blank" rel="noopener noreferrer">Vasant Vihar, Kosi Colony, PWD Colony, Purnia, Bihar 854301</a></p>
         </div>
       </div>
       <div className="footer-bottom"><span>© {new Date().getFullYear()} Labith Interno LLP. All rights reserved.</span><div><Link href="/privacy-policy">Privacy policy</Link><Link href="/terms-and-conditions">Terms & conditions</Link></div></div>

@@ -23,7 +23,23 @@ const values = [[ShieldCheck, "Selected Quality", "Interior products selected fo
 export default async function HomePage() {
   const [products, testimonials] = await Promise.all([getProducts(), getTestimonials()]);
   const productCategories = products.map(({ title, slug }) => ({ title, slug }));
-  const organizationSchema = { "@context": "https://schema.org", "@type": "Organization", name: "Labith Interno LLP", url: absoluteUrl("/"), logo: absoluteUrl("/images/logo.webp"), description: "Premium interior products and decorative surface materials.", sameAs: [] };
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Labith Interno LLP",
+    url: absoluteUrl("/"),
+    logo: absoluteUrl("/images/logo.webp"),
+    description: "Premium interior products and decorative surface materials.",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Vasant Vihar, Kosi Colony, PWD Colony",
+      addressLocality: "Purnia",
+      addressRegion: "Bihar",
+      postalCode: "854301",
+      addressCountry: "IN"
+    },
+    sameAs: []
+  };
   return <>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
     <Hero productCategories={productCategories} />

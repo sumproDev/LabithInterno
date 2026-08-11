@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Clock3, Mail, MessageCircle, Phone } from "lucide-react";
+import { Clock3, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { PageHero } from "@/components/shared/page-hero";
 import { ContactForm } from "@/components/forms/contact-form";
 import { Container } from "@/components/ui/container";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata("Contact Labith Interno", "Contact Labith Interno for customer product and dealership enquiries.", "/contact");
-const details = [[Phone,"Call us","+91 95708 00440","Direct phone line"],[Mail,"Email us","labithinterno@gmail.com","Official email address"],[Clock3,"Business hours","Monday-Saturday · 10:00-18:00","Customer support hours"]] as const;
+const details = [[MapPin,"Visit us","Vasant Vihar, Kosi Colony, PWD Colony, Purnia, Bihar 854301","Head Office / Experience Centre"],[Phone,"Call us","+91 95708 00440","Direct phone line"],[Mail,"Email us","labithinternollp@gmail.com","Official email address"],[Clock3,"Business hours","Monday-Saturday · 10:00-18:00","Customer support hours"]] as const;
 
 export default function ContactPage(){
   const num=process.env.NEXT_PUBLIC_WHATSAPP_NUMBER||"919570800440";

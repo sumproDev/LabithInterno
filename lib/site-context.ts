@@ -33,7 +33,7 @@ const brandBlocks: ContextBlock[] = [
   {
     title: "Contact and enquiry",
     url: "/contact",
-    text: "Contact Labith Interno via Email: labithinterno@gmail.com, Phone: +91 95708 00440, or submit an enquiry on our website at /contact. Our team handles both customer and dealership enquiries.",
+    text: "Contact Labith Interno via Email: labithinternollp@gmail.com, Phone: +91 95708 00440, Address: Vasant Vihar, Kosi Colony, PWD Colony, Purnia, Bihar 854301, or submit an enquiry on our website at /contact. Our team handles both customer and dealership enquiries.",
   },
 ];
 
@@ -133,9 +133,9 @@ export function findRelevantContext(question: string, limit = 4) {
 export function buildFallbackAnswer(question: string) {
   const q = question.toLowerCase();
 
-  // Contact / Gmail / Email / Phone intent
-  if (q.includes("email") || q.includes("gmail") || q.includes("contact") || q.includes("phone") || q.includes("number") || q.includes("reach") || q.includes("call")) {
-    return "You can reach Labith Interno via email at labithinterno@gmail.com or by phone at +91 95708 00440. You can also submit an enquiry directly on our Contact page at /contact.";
+  // Contact / Gmail / Email / Phone / Address intent
+  if (q.includes("email") || q.includes("gmail") || q.includes("contact") || q.includes("phone") || q.includes("number") || q.includes("reach") || q.includes("call") || q.includes("address") || q.includes("location") || q.includes("office") || q.includes("where")) {
+    return "You can reach Labith Interno via email at labithinternollp@gmail.com or by phone at +91 95708 00440. Our address is Vasant Vihar, Kosi Colony, PWD Colony, Purnia, Bihar 854301. You can also submit an enquiry directly on our Contact page at /contact.";
   }
 
   // Home / House building & integration intent
