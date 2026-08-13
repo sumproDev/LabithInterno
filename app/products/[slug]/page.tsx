@@ -55,7 +55,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     <section className="product-detail-hero">
       <Container>
         <nav className="breadcrumbs" aria-label="Breadcrumb">
-          <Link href="/"><Home/>Home</Link>
+          <Link href="/"><Home />Home</Link>
           <span>/</span>
           <Link href="/products">Products</Link>
           <span>/</span>

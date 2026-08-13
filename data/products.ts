@@ -20,7 +20,7 @@ export const products: Product[] = [
     id: "LI-01", slug: "uv-marble-sheet", title: "UV Marble Sheet", category: "Decorative Surfaces",
     shortDescription: "High-gloss marble visuals for premium walls, counters and statement surfaces.",
     fullDescription: "UV marble sheets combine rich marble-inspired patterns with a smooth, easy-care finish for bold and refined interior surfaces.",
-    images: [],
+    images: ["https://res.cloudinary.com/l5uf8nit/image/upload/v1786533193/labith-interno/otylsnpmn1r5xdqos7y1.jpg"],
     finishes: ["High Gloss", "Bookmatch", "Metallic Vein", "Designer Print"],
     applications: ["TV walls", "Living rooms", "Lobbies", "Counters"],
     features: ["Premium marble look", "Smooth UV finish", "Easy-care surface", "Wide design selection"],
@@ -32,7 +32,10 @@ export const products: Product[] = [
     id: "LI-02", slug: "soffit-panel", title: "Soffit Panel", category: "Ceiling Products",
     shortDescription: "Linear ceiling panels for clean, durable and contemporary overhead finishes.",
     fullDescription: "Soffit panels create precise ceiling lines with practical performance and a coordinated range of wood, solid and linear finishes.",
-    images: [],
+    images: [
+      "https://res.cloudinary.com/l5uf8nit/image/upload/v1786532504/labith-interno/wuwsxcgmay2pa6fcsj2s.jpg",
+      "https://res.cloudinary.com/l5uf8nit/image/upload/v1786532504/labith-interno/sfxknljtaoezlzn9mpih.avif"
+    ],
     finishes: ["Woodgrain", "Walnut", "Solid", "Linear"],
     applications: ["Living areas", "Bedrooms", "Offices", "Covered ceilings"],
     features: ["Clean linear profile", "Low maintenance", "Coordinated trims", "Modern ceiling finish"],
@@ -44,7 +47,10 @@ export const products: Product[] = [
     id: "LI-03", slug: "wpc-doors-frames", title: "WPC Doors & Frames", category: "Doors & Frames",
     shortDescription: "Coordinated WPC door and frame systems with contemporary surface finishes.",
     fullDescription: "WPC doors and frames offer a coordinated, low-maintenance product system for modern residential and commercial interiors.",
-    images: [],
+    images: [
+      "https://res.cloudinary.com/l5uf8nit/image/upload/v1786530529/labith-interno/d2edctqbuczyp99rmida.jpg",
+      "https://res.cloudinary.com/l5uf8nit/image/upload/v1786530487/labith-interno/ehb51h8tji2upvfzrvft.jpg"
+    ],
     finishes: ["Walnut", "Teak", "Oak", "Custom Tone"],
     applications: ["Bedrooms", "Utility areas", "Offices", "Interior doorways"],
     features: ["Coordinated system", "Low maintenance", "Contemporary finishes", "Practical everyday use"],
@@ -56,7 +62,10 @@ export const products: Product[] = [
     id: "LI-04", slug: "wpc-sheets", title: "WPC Sheets", category: "WPC Products",
     shortDescription: "Versatile WPC sheets for furniture, partitions and decorative interior surfaces.",
     fullDescription: "WPC sheets provide a practical base material with consistent construction and versatile finishing possibilities.",
-    images: [],
+    images: [
+      "https://res.cloudinary.com/l5uf8nit/image/upload/v1786613162/labith-interno/dm9muiszw0zyqas9x4xj.webp",
+      "https://res.cloudinary.com/l5uf8nit/image/upload/v1786613162/labith-interno/trb1aaohensqfc7q59kn.webp"
+    ],
     finishes: ["Natural", "Laminated", "Woodgrain", "Solid"],
     applications: ["Cabinetry", "Partitions", "Modular furniture", "Wall cladding"],
     features: ["Versatile sheet format", "Consistent surface", "Multiple thicknesses", "Interior product flexibility"],
@@ -68,7 +77,10 @@ export const products: Product[] = [
     id: "LI-05", slug: "french-moldings", title: "French Moldings", category: "Decorative Profiles",
     shortDescription: "Elegant wall profiles for classic panel compositions and refined detailing.",
     fullDescription: "French moldings bring proportion, rhythm and elegant framed detailing to walls, doors and decorative compositions.",
-    images: [],
+    images: [
+      "https://res.cloudinary.com/l5uf8nit/image/upload/v1786531070/labith-interno/fqky4ezqhuripunxdwz3.avif",
+      "https://res.cloudinary.com/l5uf8nit/image/upload/v1786531071/labith-interno/wn6gtrti2failmonjqzs.jpg"
+    ],
     finishes: ["Classic White", "Paintable", "Gold Accent", "Custom Finish"],
     applications: ["Living rooms", "Bedrooms", "Corridors", "Hospitality spaces"],
     features: ["Elegant profile detail", "Flexible compositions", "Paint-ready options", "Classic-modern character"],
@@ -80,7 +92,11 @@ export const products: Product[] = [
     id: "LI-06", slug: "pvc-panels", title: "PVC Panels", category: "Wall & Ceiling Panels",
     shortDescription: "Lightweight, low-maintenance panels for clean wall and ceiling finishes.",
     fullDescription: "PVC panels offer practical wall and ceiling coverage in a versatile range of modern finishes.",
-    images: [], finishes: ["Woodgrain", "Stone", "Solid", "Linear"],
+    images: [
+      "https://res.cloudinary.com/l5uf8nit/image/upload/v1786606392/labith-interno/pbsovatvnecjzpzkybnj.png",
+      "https://res.cloudinary.com/l5uf8nit/image/upload/v1786611181/labith-interno/lwblymn4oyufa3753nx2.webp"
+    ],
+    finishes: ["Woodgrain", "Stone", "Solid", "Linear"],
     applications: ["Utility areas", "Kitchens", "Ceilings", "Commercial interiors"],
     features: ["Low maintenance", "Lightweight", "Quick fitting", "Multiple surface options"],
     dimensions: "Sizes and profiles vary by collection.", installation: "Use the recommended frame or direct-fix method.", maintenance: "Wipe clean; avoid abrasive tools and strong solvents.", featured: true,
@@ -89,7 +105,11 @@ export const products: Product[] = [
     id: "LI-07", slug: "wpc-louvers", title: "WPC Louvers", category: "Architectural Profiles",
     shortDescription: "Linear profiles that add warmth, rhythm and depth to interior surfaces.",
     fullDescription: "WPC louvers create calm repetition, tactile warmth and architectural definition across walls and ceilings.",
-    images: [], finishes: ["Walnut", "Oak", "Teak", "Charcoal"],
+    images: [
+      "https://res.cloudinary.com/l5uf8nit/image/upload/v1786591172/labith-interno/unubnbx6fszyowlgxv0n.webp",
+      "https://res.cloudinary.com/l5uf8nit/image/upload/v1786591171/labith-interno/sulur4bmdk3w6hnybfsl.webp"
+    ],
+    finishes: ["Walnut", "Oak", "Teak", "Charcoal"],
     applications: ["TV walls", "Living rooms", "Receptions", "Feature ceilings"],
     features: ["Dimensional texture", "Warm wood visuals", "Modular profiles", "Coordinated trims"],
     dimensions: "Profile selection determines panel width and depth.", installation: "Fit over a prepared framework with suitable clips and edge trims.", maintenance: "Dust regularly and wipe with a lightly damp microfiber cloth.", featured: true,
@@ -98,7 +118,11 @@ export const products: Product[] = [
     id: "LI-08", slug: "fluted-panels", title: "Fluted Panels", category: "Textured Panels",
     shortDescription: "Contemporary textured panels for refined feature walls and statement surfaces.",
     fullDescription: "Precision-fluted surfaces bring shadow, rhythm and sculptural depth to modern interior planes.",
-    images: [], finishes: ["Natural Wood", "Deep Charcoal", "Warm Beige", "Custom Tone"],
+    images: [
+      "https://res.cloudinary.com/l5uf8nit/image/upload/v1786532859/labith-interno/vvfesf1m4kjmnxl8nojj.jpg",
+      "https://res.cloudinary.com/l5uf8nit/image/upload/v1786532277/labith-interno/dgq2ri22xfhhsfbzdlfo.jpg"
+    ],
+    finishes: ["Natural Wood", "Deep Charcoal", "Warm Beige", "Custom Tone"],
     applications: ["Feature walls", "Vanity areas", "Bedrooms", "Retail interiors"],
     features: ["Vertical visual rhythm", "Premium depth", "Flexible compositions", "Clean edge detailing"],
     dimensions: "Module dimensions are collection-specific.", installation: "Align modules from a fixed datum and finish with coordinated trims.", maintenance: "Use a soft brush or microfiber cloth along the flute direction.", featured: true,
@@ -107,7 +131,11 @@ export const products: Product[] = [
     id: "LI-09", slug: "charcoal-panels", title: "Charcoal Panels", category: "Decorative Panels",
     shortDescription: "Rich decorative panels for depth, contrast and premium visual impact.",
     fullDescription: "Charcoal panels deliver expressive patterns, deep tones and tactile character for bold statement surfaces.",
-    images: [], finishes: ["Embossed", "Metallic", "Stone", "Geometric"],
+    images: [
+      "https://res.cloudinary.com/l5uf8nit/image/upload/v1786532561/labith-interno/ocmblyzo4gjrbx30bko2.jpg",
+      "https://res.cloudinary.com/l5uf8nit/image/upload/v1786532638/labith-interno/jqyppg9ggye1vksvigqd.jpg"
+    ],
+    finishes: ["Embossed", "Metallic", "Stone", "Geometric"],
     applications: ["Statement walls", "Lobbies", "Retail displays", "Reception areas"],
     features: ["Expressive surface", "Deep colourways", "Design-led patterns", "Statement finish"],
     dimensions: "Pattern and sheet dimensions vary by design.", installation: "Dry-lay the pattern before fixing to a prepared level surface.", maintenance: "Dust gently and spot-clean with a compatible mild solution.", featured: true,
@@ -116,7 +144,11 @@ export const products: Product[] = [
     id: "LI-10", slug: "pu-stone", title: "PU Stone", category: "Stone Surfaces",
     shortDescription: "Realistic stone-inspired finishes in a lightweight panel format.",
     fullDescription: "PU stone recreates natural stone texture with a practical lightweight format and strong visual depth.",
-    images: [], finishes: ["Slate", "Stacked Stone", "Travertine", "Deep Rock"],
+    images: [
+      "https://res.cloudinary.com/l5uf8nit/image/upload/v1786531828/labith-interno/xpwipasnqttrlefy6red.jpg",
+      "https://res.cloudinary.com/l5uf8nit/image/upload/v1786531827/labith-interno/kbzepim09hwzylqo1xfd.webp"
+    ],
+    finishes: ["Slate", "Stacked Stone", "Travertine", "Deep Rock"],
     applications: ["Feature walls", "Columns", "Hospitality spaces", "Covered exteriors"],
     features: ["Realistic texture", "Lightweight format", "Fast visual impact", "Corner options"],
     dimensions: "Panel and corner sizes depend on the selected texture.", installation: "Use the approved adhesive and support method for the substrate.", maintenance: "Remove dust with a soft brush; use mild soap only when required.", featured: true,

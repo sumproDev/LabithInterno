@@ -44,7 +44,8 @@ async function listFromMongo<T>(model: ListableModel, fallback: T[]) {
     await connectDB();
     const items = await model.find({}).sort({ order: 1, createdAt: 1 }).lean();
     return items.length ? clean(items) as T[] : fallback;
-  } catch {
+  } catch (err) {
+    console.error("MongoDB query error in listFromMongo, using fallback:", err);
     return fallback;
   }
 }

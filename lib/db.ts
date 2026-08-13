@@ -1,6 +1,24 @@
 import mongoose from "mongoose";
+import dns from "dns";
 
-const MONGODB_URI = process.env.MONGODB_URI;
+try {
+  dns.setServers(["8.8.8.8", "1.1.1.1"]);
+} catch {
+  // Ignore in environments where setting DNS servers is not allowed
+}
+
+function formatMongoUri(uri: string): string {
+  const regex = /^(mongodb\+srv:\/\/|mongodb:\/\/)([^:]+):([^@]+)@(.+)$/;
+  const match = uri.match(regex);
+  if (match) {
+    const [, scheme, user, pass, rest] = match;
+    return `${scheme}${user}:${encodeURIComponent(pass)}@${rest}`;
+  }
+  return uri;
+}
+
+const rawUri = process.env.MONGODB_URI;
+const MONGODB_URI = rawUri ? formatMongoUri(rawUri) : undefined;
 
 type CachedConnection = {
   conn: typeof mongoose | null;
