@@ -90,7 +90,7 @@ export default async function LabithInternosGalleryPage() {
         eyebrow="LABITH INTERNOS GALLERY"
         title="A Material Gallery for Beautiful Interior Ideas"
         description="Explore product finishes, installed looks, statement walls, ceiling details and stone-inspired textures from the Labith Interno image collection."
-        image="/images/fluted-wall-with-lights.jpeg"
+        image="/images/hero-living-room.png"
       />
       <section className="gallery-intro section-pad">
         <Container>
