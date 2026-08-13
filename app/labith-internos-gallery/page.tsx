@@ -31,6 +31,16 @@ function titleFromFile(file: string) {
     .replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
+function isValidImage(src: string): boolean {
+  if (!src) return false;
+  if (src.startsWith("http://") || src.startsWith("https://")) return true;
+  if (src.startsWith("/")) {
+    const localPath = path.join(process.cwd(), "public", src);
+    return fs.existsSync(localPath);
+  }
+  return false;
+}
+
 async function getGalleryItems(): Promise<GalleryItem[]> {
   const [products, projects, collections] = await Promise.all([getProducts(), getProjects(), getCollections()]);
   const productItems = products.flatMap((product) =>
@@ -63,21 +73,25 @@ async function getGalleryItems(): Promise<GalleryItem[]> {
 
   const used = new Set([...productItems, ...projectItems, ...collectionItems].map((item) => item.src));
   const imageDirectory = path.join(process.cwd(), "public", "images");
-  const availableItems = fs
-    .readdirSync(imageDirectory)
-    .filter((file) => /\.(jpe?g|png|webp|jfif)$/i.test(file))
-    .map((file) => `/images/${file}`)
-    .filter((src) => !used.has(src) && !src.includes("logo"))
-    .map((src) => ({
-      src,
-      title: titleFromFile(path.basename(src)),
-      label: "Available image",
-      href: "/products",
-      type: "Gallery" as const,
-    }));
+  const availableItems = fs.existsSync(imageDirectory)
+    ? fs
+        .readdirSync(imageDirectory)
+        .filter((file) => /\.(jpe?g|png|webp|jfif)$/i.test(file))
+        .map((file) => `/images/${file}`)
+        .filter((src) => !used.has(src) && !/logo|whatsapp/i.test(src))
+        .map((src) => ({
+          src,
+          title: titleFromFile(path.basename(src)),
+          label: "Available image",
+          href: "/products",
+          type: "Gallery" as const,
+        }))
+    : [];
 
   const unique = new Map<string, GalleryItem>();
-  [...productItems, ...projectItems, ...collectionItems, ...availableItems].forEach((item) => unique.set(item.src, item));
+  [...productItems, ...projectItems, ...collectionItems, ...availableItems]
+    .filter((item) => isValidImage(item.src))
+    .forEach((item) => unique.set(item.src, item));
   return Array.from(unique.values());
 }
 
@@ -114,7 +128,7 @@ export default async function LabithInternosGalleryPage() {
         <Container>
           <div className="masonry-grid">
             {items.map((item, index) => (
-              <Link className={`masonry-card masonry-card-${(index % 5) + 1}`} href={item.href} key={item.src}>
+              <Link className="masonry-card" href={item.href} key={item.src}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={item.src} alt={`${item.title} by Labith Interno`} loading={index < 8 ? "eager" : "lazy"} />
                 <span className="masonry-type">{item.type}</span>
