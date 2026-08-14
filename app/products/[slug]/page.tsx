@@ -13,7 +13,11 @@ import { absoluteUrl } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
 
-const fallbackImages = ["/images/pu-stone.jpg", "/images/marble-tv-wall.jpeg", "/images/fluted-panel-living-room.jpeg"];
+const fallbackImages = [
+  "https://res.cloudinary.com/l5uf8nit/image/upload/v1786531828/labith-interno/xpwipasnqttrlefy6red.jpg",
+  "https://res.cloudinary.com/l5uf8nit/image/upload/v1786533193/labith-interno/otylsnpmn1r5xdqos7y1.jpg",
+  "https://res.cloudinary.com/l5uf8nit/image/upload/v1786532859/labith-interno/vvfesf1m4kjmnxl8nojj.jpg"
+];
 
 export async function generateStaticParams() {
   const products = await getProducts();
