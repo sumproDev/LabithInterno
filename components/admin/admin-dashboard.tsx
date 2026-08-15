@@ -4,26 +4,24 @@ import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Database, ImagePlus, Loader2, LogOut, Plus, Save, Star, Trash2 } from "lucide-react";
 
-type Resource = "products" | "collections" | "projects" | "testimonials";
+type Resource = "products" | "collections" | "testimonials";
 type RecordItem = Record<string, string | number | boolean | string[] | undefined> & { _id?: string };
 type Toast = { id: number; type: "success" | "error"; message: string };
 
 const resources: { key: Resource; label: string; description: string }[] = [
   { key: "products", label: "Products", description: "Product catalog, specifications, finishes and gallery images." },
   { key: "collections", label: "Collections", description: "Curated groups of products and visual collections." },
-  { key: "projects", label: "Projects", description: "Portfolio stories, project imagery and case-study content." },
   { key: "testimonials", label: "Testimonials", description: "Client quotes shown across the website." },
 ];
 
 const emptyRecords: Record<Resource, RecordItem> = {
   products: { id: "", slug: "", title: "", category: "", shortDescription: "", fullDescription: "", images: [], finishes: [], applications: [], features: [], dimensions: "", installation: "", maintenance: "", featured: true, order: 0 },
   collections: { slug: "", title: "", description: "", images: [], productSlugs: [], featured: true, order: 0 },
-  projects: { slug: "", title: "", location: "", type: "", products: [], image: "", challenge: "", approach: "", result: "", featured: true, order: 0 },
   testimonials: { quote: "", name: "", role: "", rating: 5, image: "", featured: true, order: 0 },
 };
 
-const arrayFields = new Set(["images", "finishes", "applications", "features", "productSlugs", "products"]);
-const longFields = new Set(["shortDescription", "fullDescription", "description", "dimensions", "installation", "maintenance", "challenge", "approach", "result", "quote"]);
+const arrayFields = new Set(["images", "finishes", "applications", "features", "productSlugs"]);
+const longFields = new Set(["shortDescription", "fullDescription", "description", "dimensions", "installation", "maintenance", "quote"]);
 const hiddenFields = new Set(["__v", "createdAt", "updatedAt"]);
 
 function readable(field: string) {

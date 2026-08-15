@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     const message = typeof body?.message === "string" ? body.message.trim() : "";
 
     if (!message) {
-      return NextResponse.json({ answer: "Please ask a question about Labith Interno products, projects or dealership details." }, { status: 400 });
+      return NextResponse.json({ answer: "Please ask a question about Labith Interno products or dealership details." }, { status: 400 });
     }
 
     const apiKey = process.env.OPENAI_API_KEY;

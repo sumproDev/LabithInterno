@@ -36,23 +36,6 @@ const collectionSchema = new Schema(
   { timestamps: true },
 );
 
-const projectSchema = new Schema(
-  {
-    slug: { type: String, required: true, unique: true, trim: true },
-    title: { type: String, required: true, trim: true },
-    location: { type: String, default: "" },
-    type: { type: String, required: true, trim: true },
-    products: stringArray,
-    image: { type: String, required: true },
-    challenge: { type: String, default: "" },
-    approach: { type: String, default: "" },
-    result: { type: String, default: "" },
-    featured: { type: Boolean, default: true },
-    order: { type: Number, default: 0 },
-  },
-  { timestamps: true },
-);
-
 const testimonialSchema = new Schema(
   {
     quote: { type: String, required: true, trim: true },
@@ -68,5 +51,4 @@ const testimonialSchema = new Schema(
 
 export const ProductModel = mongoose.models.Product || mongoose.model("Product", productSchema);
 export const CollectionModel = mongoose.models.Collection || mongoose.model("Collection", collectionSchema);
-export const ProjectModel = mongoose.models.Project || mongoose.model("Project", projectSchema);
 export const TestimonialModel = mongoose.models.Testimonial || mongoose.model("Testimonial", testimonialSchema);

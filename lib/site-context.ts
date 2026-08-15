@@ -1,7 +1,6 @@
 import { franchiseFaqs } from "@/data/faqs";
 import { products } from "@/data/products";
-import { projects } from "@/data/projects";
-import { getProducts, getProjects } from "@/lib/cms";
+import { getProducts } from "@/lib/cms";
 
 export type ContextBlock = {
   title: string;
@@ -50,16 +49,6 @@ const productBlocks: ContextBlock[] = products.map((product) => ({
   ].join(" "),
 }));
 
-const projectBlocks: ContextBlock[] = projects.map((project) => ({
-  title: project.title,
-  url: `/projects/${project.slug}`,
-  text: [
-    `${project.title} is a ${project.type.toLowerCase()} project.`,
-    `Products used: ${project.products.join(", ")}.`,
-    `Result: ${project.result}`,
-  ].join(" "),
-}));
-
 const faqBlocks: ContextBlock[] = franchiseFaqs.map((faq) => ({
   title: faq.q,
   url: "/dealership",
@@ -69,7 +58,6 @@ const faqBlocks: ContextBlock[] = franchiseFaqs.map((faq) => ({
 export const websiteContextBlocks: ContextBlock[] = [
   ...brandBlocks,
   ...productBlocks,
-  ...projectBlocks,
   ...faqBlocks,
 ];
 
@@ -160,7 +148,7 @@ export function buildFallbackAnswer(question: string) {
 }
 
 export async function getDynamicWebsiteContext() {
-  const [dynamicProducts, dynamicProjects] = await Promise.all([getProducts(), getProjects()]);
+  const dynamicProducts = await getProducts();
   const productBlocks = dynamicProducts.map((product) => ({
     title: product.title,
     url: `/products/${product.slug}`,
@@ -176,12 +164,7 @@ export async function getDynamicWebsiteContext() {
       `Maintenance: ${product.maintenance}`,
     ].join(" "),
   }));
-  const projectBlocks = dynamicProjects.map((project) => ({
-    title: project.title,
-    url: `/projects/${project.slug}`,
-    text: [`${project.title} is a ${project.type.toLowerCase()} project.`, `Products used: ${project.products.join(", ")}.`, project.challenge, project.approach, project.result].join(" "),
-  }));
-  return [...brandBlocks, ...productBlocks, ...projectBlocks, ...faqBlocks]
+  return [...brandBlocks, ...productBlocks, ...faqBlocks]
     .map((block) => `Title: ${block.title}\nURL: ${block.url}\nContent: ${block.text}`)
     .join("\n\n");
 }

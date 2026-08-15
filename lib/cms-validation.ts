@@ -36,20 +36,6 @@ export const collectionSchema = z.object({
   order: z.coerce.number().default(0),
 });
 
-export const projectSchema = z.object({
-  slug,
-  title: z.string().trim().min(2),
-  location: z.string().trim().default(""),
-  type: z.string().trim().min(2),
-  products: csvArray,
-  image: imageString.default(""),
-  challenge: z.string().trim().default(""),
-  approach: z.string().trim().default(""),
-  result: z.string().trim().default(""),
-  featured: z.boolean().default(true),
-  order: z.coerce.number().default(0),
-});
-
 export const testimonialSchema = z.object({
   quote: z.string().trim().min(10),
   name: z.string().trim().min(2),
@@ -63,12 +49,11 @@ export const testimonialSchema = z.object({
 export const schemas = {
   products: productSchema,
   collections: collectionSchema,
-  projects: projectSchema,
   testimonials: testimonialSchema,
 };
 
 export type ResourceName = keyof typeof schemas;
 
 export function isResourceName(value: string): value is ResourceName {
-  return value === "products" || value === "collections" || value === "projects" || value === "testimonials";
+  return value === "products" || value === "collections" || value === "testimonials";
 }
